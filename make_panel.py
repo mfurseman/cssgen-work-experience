@@ -55,7 +55,7 @@ def gen_grid(cell_array, xpos, ypos, rec_width, rec_height, padding, rec_functio
 
 
 def bpm_positions():
-	rows = 10
+	rows = 14
 	columns = 24
 
 	full_row = []
@@ -76,11 +76,44 @@ def bpm_positions():
 	cell_array = np.array([s_one_two, s_one_two, full_row, full_row, full_row, full_row, full_row, full_row, full_row, eight])
 
 	return cell_array
-			
+
+def corrector_positions():
+	rows = 10
+	columns = 24
+
+	full_row = []
+	for i in range(columns):
+		full_row.append(1)
+
+	s_one_two = []
+	for i in range(columns):
+		s_one_two.append(0)
+	s_one_two[8] = 1
+	s_one_two[12] = 1
+
+	two_three_six = []
+	for i in range(columns):
+		two_three_six.append(1)
+	two_three_six[1] = 0
+
+	five = []
+	for i in range(columns):
+		five.append(1)
+	five[10] = 0
+
+	c_one_two_eight_ten = []
+	for i in range(columns):
+		c_one_two_eight_ten.append(0)
+	c_one_two_eight_ten[1] = 1
+
+	cell_array = np.array([s_one_two, s_one_two, full_row, two_three_six, two_three_six, full_row, five, c_one_two_eight_ten, c_one_two_eight_ten, two_three_six, full_row, c_one_two_eight_ten, c_one_two_eight_ten])
+
+	return cell_array
+
 
 def main():		
 	display = widgets.Display(604, 367)  
-	cell_array = bpm_positions()
+	cell_array = corrector_positions()
 	print(cell_array)
 	headerBox(604, 50, "SOFB and FOFB BPM Masks", display)
 
