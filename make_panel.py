@@ -32,7 +32,7 @@ def headerBox(xsize, ysize, title, display):
 
 
 
-def greenRectangle(xpos, ypos, xsize, ysize, display):                              #function creates the bunch of 4 small green rectangles
+def green_rectangle(xpos, ypos, xsize, ysize, display):                              #function creates the bunch of 4 small green rectangles
 
 	border_width = 1
 	
@@ -53,9 +53,25 @@ def greenRectangle(xpos, ypos, xsize, ysize, display):                          
 
 headerBox(800, 50, "SOFB and FOFB BPM Mask", display)
 
-greenRectangle(100, 100, 100, 100, display)
 
 
+def gen_grid(rows, columns):
+	num_rows = 14
+	num_columns = 24
+
+	#cells_array = np.ones((rows, columns), dtype=bool)
+
+	row_array = np.linspace(55, 367, num_rows)
+	column_array = np.linspace(20, 604, num_columns)
+	row_list = row_array.tolist()
+	column_list = column_array.tolist() 
+
+	for row in row_list:
+		for column in column_list:
+			green_rectangle(column, row, (604/num_columns - 5), (367/num_rows - 5), display)
+			
+
+gen_grid(14, 24)
 
 
 
