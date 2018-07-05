@@ -1,17 +1,16 @@
 #!/usr/bin/env dls-python2.7
 
-from pkg_resources import require     #imports the required functions from package resources
-require('cssgen==0.4dls1')            #runs the require function 
+from pkg_resources import require     
+require('cssgen==0.4dls1')           
 require('numpy')
 
 import numpy as np
-from opimodel import widgets, colors, borders, fonts, dls_utils #imports modules to edit the GUI
-from renderers.css import render          #imports modules to allow the GUI to be viewed
-import os                                 #imports os
+from opimodel import widgets, colors, borders, fonts, dls_utils 
+from renderers.css import render         
+import os                               
 
 
-FILENAME = 'test.opi'              #sets the target file in the folder
-
+FILENAME = 'test.opi'             
 colors.parse_css_color_file(dls_utils.find_color_file())  #reads the color configuration files
 fonts.parse_css_font_file(dls_utils.find_font_file())     #reads the font config file
 
