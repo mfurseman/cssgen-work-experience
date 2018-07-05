@@ -26,7 +26,7 @@ def initialiseCells(x, y, cell_width, cell_height, cell_gap, side_name_list, top
     ####SIDE CELLS####
 
     for i in range(num_of_side_cells):
-        y_pos_list.append(y*2 + cell_height + (i * cell_height) + (i * cell_gap))
+        y_pos_list.append(y + cell_height + (i * cell_height) + (i * cell_gap))
         #sets y positions for cells and adds to list
 
     for ypos, name in zip(y_pos_list, side_name_list):
@@ -43,7 +43,7 @@ def initialiseCells(x, y, cell_width, cell_height, cell_gap, side_name_list, top
 
     for i in range(num_of_top_cells):
 
-        x_pos_list.append(x*2 + cell_width + (i * cell_width) + i *cell_gap)
+        x_pos_list.append(x + cell_width + (i * cell_width) + i *cell_gap)
 
     for xpos, name in zip(x_pos_list, top_name_list):
 
@@ -151,20 +151,27 @@ def corrector_positions():
 
 
 def main():
+
+    width = 20
+    height = 25
+    gap = 3
+    header_box_height = 50
+    
     display = widgets.Display(604, 367)
     cell_array = corrector_positions()
     print(cell_array)
-    headerBox(604, 50, "SOFB and FOFB BPM Masks", display)
+    headerBox(604, header_box_height, "SOFB and FOFB Corrector Enable", display)
     def display_func(xpos, ypos, xsize, ysize):
         green_rectangle(xpos, ypos, xsize, ysize, display)
-    gen_grid(cell_array, 30, 80, 15, 20, 4, display_func)
+    gen_grid(cell_array, width + gap*2, 2*gap + header_box_height + height, width, height, gap, display_func)
 
     list_of_side = ["S1", "S2", "01", "02", "03", "04", "05", "C1", "C2", "06", "07", "08", "10"]
     list_of_top = []
     for i in range(24): #creates list of labels for top cells
         i += 1
         list_of_top.append(i)
-    initialiseCells(2, 2, 18, 22, 5, list_of_side, list_of_top, display) #calls function with arguments
+        
+    initialiseCells(gap, header_box_height+gap, width, height, gap, list_of_side, list_of_top, display) #calls function with arguments
 
     # Write out the display
     render.get_opi_renderer(display).write_to_file(FILENAME)
