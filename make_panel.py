@@ -9,7 +9,8 @@ from renderers.css import render
 import numpy as np
 
 
-FILENAME = 'test.opi' #sets the target file in folder
+BPM_OPI = 'test.opi' #sets the target file in folder
+corrector_OPI = 'Corrector.opi'
 
 
 colors.parse_css_color_file(dls_utils.find_color_file()) #parses pre-defined colours and fonts into program
@@ -153,21 +154,20 @@ def corrector_positions():
 def main():
     display = widgets.Display(604, 367)
     cell_array = corrector_positions()
-    print(cell_array)
     headerBox(604, 50, "SOFB and FOFB BPM Masks", display)
     def display_func(xpos, ypos, xsize, ysize):
         green_rectangle(xpos, ypos, xsize, ysize, display)
     gen_grid(cell_array, 30, 80, 15, 20, 4, display_func)
 
     list_of_side = ["S1", "S2", "01", "02", "03", "04", "05", "C1", "C2", "06", "07", "08", "10"]
-    list_of_top = []
+    list_of_top = ['%02d' % xx for xx in range(1, 25)]
     for i in range(24): #creates list of labels for top cells
         i += 1
         list_of_top.append(i)
     initialiseCells(2, 2, 18, 22, 5, list_of_side, list_of_top, display) #calls function with arguments
 
     # Write out the display
-    render.get_opi_renderer(display).write_to_file(FILENAME)
+    render.get_opi_renderer(display).write_to_file(corrector_OPI)
 
 
 if __name__ == "__main__":
