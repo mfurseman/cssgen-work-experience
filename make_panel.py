@@ -51,24 +51,29 @@ def green_rectangle(xpos, ypos, xsize, ysize, display):                         
 		rectangle.set_border(borders.Border(borders.LINE_STYLE, border_width, colors.BLACK, False))    #sets black borders 
 		display.add_child(rectangle)   #adds rectangles to display
 
-headerBox(800, 50, "SOFB and FOFB BPM Mask", display)
+headerBox(604, 50, "SOFB and FOFB BPM Mask", display)
 
 
 
 def gen_grid(rows, columns):
-	num_rows = 14
-	num_columns = 24
 
-	#cells_array = np.ones((rows, columns), dtype=bool)
+	cells_array = np.ones((rows, columns), dtype=bool)
 
-	row_array = np.linspace(55, 367, num_rows)
-	column_array = np.linspace(20, 604, num_columns)
-	row_list = row_array.tolist()
-	column_list = column_array.tolist() 
+	row_array = np.linspace(80, 367, rows)                              #creates array for row coordinate values
+	column_array = np.linspace(30, 604, columns)                        #creates array for column coordinate values
 
-	for row in row_list:
-		for column in column_list:
-			green_rectangle(column, row, (604/num_columns - 5), (367/num_rows - 5), display)
+	
+	xcoords, ycoords = np.meshgrid(column_array, row_array)                #creates 2D array of x coordinate and y coordinates
+
+	cells_array[3,3]=False
+	
+
+
+	for x in range(rows):
+		for y in range(columns):
+			if cells_array[x,y] == True:
+				green_rectangle(xcoords[x,y], ycoords[x,y], (604/columns - 5), (367/rows - 5), display)
+
 			
 
 gen_grid(14, 24)
