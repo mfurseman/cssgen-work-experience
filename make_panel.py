@@ -29,7 +29,7 @@ def headerBox(xsize, ysize, title, display):
 def green_rectangle(xpos, ypos, xsize, ysize, display):                              #function creates the bunch of 4 small green rectangles
 	border_width = 1
 	
-	rectangleSH = widgets.Rectangle(xpos, ypos, xsize/2, ysize/2)      #rectangle for each of SH, SV, FH AND FV
+	rectangleSH = widgets.Rectangle(xpos, ypos, xsize/2, ysize/2)      #rectangle for each of SH, SV, FH AND FV  (slow/fast, horizontal/vertical)
 	rectangleSV = widgets.Rectangle(xpos + (xsize/2) - (border_width), ypos, xsize/2, ysize/2)
 	rectangleFH = widgets.Rectangle(xpos, ypos+ysize/2 - (border_width), xsize/2, ysize/2)
 	rectangleFV = widgets.Rectangle(xpos+xsize/2 - (border_width), ypos+ysize/2 - (border_width), xsize/2, ysize/2)
@@ -50,14 +50,39 @@ def gen_grid(cell_array, xpos, ypos, rec_width, rec_height, padding, rec_functio
 
 	for x in range(rows):
 		for y in range(columns):
-			if cell_array[x,y] == True:
+			if cell_array[x,y] == 1:
 				rec_function(xcoords[x,y], ycoords[x,y], rec_width, rec_height)
 
 
+def bpm_positions():
+	rows = 10
+	columns = 24
+
+	full_row = []
+	for i in range(columns):
+		full_row.append(1)
+	
+	s_one_two = []
+	for i in range(columns):
+		s_one_two.append(0)
+	s_one_two[8] = 1
+	s_one_two[12] = 1
+
+	eight = []
+	for i in range(columns):
+		eight.append(0)
+	eight[1] = 1
+
+	cell_array = np.array([s_one_two, s_one_two, full_row, full_row, full_row, full_row, full_row, full_row, full_row, eight])
+
+	return cell_array
+			
+
 def main():		
 	display = widgets.Display(604, 367)  
-	cell_array = np.ones((14, 24), dtype=bool)
-	headerBox(604, 50, "SOFB and FOFB BPM Mask", display)
+	cell_array = bpm_positions()
+	print(cell_array)
+	headerBox(604, 50, "SOFB and FOFB BPM Masks", display)
 
 	def display_func(xpos, ypos, xsize, ysize):
 		green_rectangle(xpos, ypos, xsize, ysize, display)
