@@ -26,7 +26,7 @@ def initialiseCells(x, y, cell_width, cell_height, cell_gap, side_name_list, top
     ####SIDE CELLS####
 
     for i in range(num_of_side_cells):
-        y_pos_list.append(y + cell_height + (i * cell_height) + (i * cell_gap))
+        y_pos_list.append(cell_gap + y + cell_height + (i * cell_height) + (i * cell_gap))
         #sets y positions for cells and adds to list
 
     for ypos, name in zip(y_pos_list, side_name_list):
@@ -43,7 +43,7 @@ def initialiseCells(x, y, cell_width, cell_height, cell_gap, side_name_list, top
 
     for i in range(num_of_top_cells):
 
-        x_pos_list.append(x + cell_width + (i * cell_width) + i *cell_gap)
+        x_pos_list.append(cell_gap + x + cell_width + (i * cell_width) + i *cell_gap)
 
     for xpos, name in zip(x_pos_list, top_name_list):
 
