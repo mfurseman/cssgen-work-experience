@@ -150,6 +150,18 @@ def corrector_positions():
 
     return cell_array
 
+def top_cells():
+	list_of_top = ['%02d' % xx for xx in range(1, 25)]
+	return list_of_top
+
+
+def side_cells(name):
+	if name == 'BPM':
+		list_of_side = ['S1', '"S2", "01", "02", "03", "04", "05", "C1", "C2", "06", "07", "08"]
+	else:
+		list_of_side = ["S1", "S2", "01", "02", "03", "04", "05", "C1", "C2", "06", "07", "08", "10"]
+	return list_of_side
+
 
 def main():
 
@@ -157,6 +169,8 @@ def main():
     height = 25
     gap = 3
     header_box_height = 50
+    list_of_side = side_cells('corrector')
+    list_of_top = top_cells()
     
     display = widgets.Display(604, 367)
     cell_array = corrector_positions()
@@ -167,15 +181,8 @@ def main():
         green_rectangle(xpos, ypos, xsize, ysize, display)
     gen_grid(cell_array, width + gap*2, 2*gap + header_box_height + height, width, height, gap, display_func)
 
-    list_of_side = ["S1", "S2", "01", "02", "03", "04", "05", "C1", "C2", "06", "07", "08", "10"]
-    list_of_top = ['%02d' % xx for xx in range(1, 25)]
-    for i in range(24): #creates list of labels for top cells
-        i += 1
-        list_of_top.append(i)
-        
-    initialiseCells(gap, header_box_height+gap, width, height, gap, list_of_side, list_of_top, display) #calls function with arguments
+    initialiseCells(gap, header_box_height+gap, width, height, gap, list_of_side, list_of_top, display)
 
-    # Write out the display
     render.get_opi_renderer(display).write_to_file(corrector_OPI)
 
 
